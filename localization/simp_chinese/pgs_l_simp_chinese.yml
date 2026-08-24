@@ -1,0 +1,22 @@
+﻿l_simp_chinese:
+ # 监控面板日志条目
+ je_group_pgs_monitor:"公司"
+ je_pgs_monitor_panel: "名贵商品监控面板"
+ je_pgs_monitor_panel_reason: "监控已解锁的名贵商品，并以固定12个月为周期定期检查是否有新的潜在生产商可激活。使用下方按钮立即检查或切换自动检查。"
+ pgs_monitor_status_tt: "监控已启用。任何正在生产名贵商品的公司都会被追踪，并按固定12个月周期检测新的潜在生产商（自动检查按月分散进行）。"
+
+ # 立即检查按钮
+ pgs_check_now_button: "立即检查"
+ pgs_check_now_button_desc: "立即对全部16种名贵商品执行检查，查找可激活的潜在生产商。"
+ pgs_check_executed_tt: "检查已执行。任何新激活的名贵商品生产商日志已重新添加。"
+
+ # AI自动检查按钮
+ pgs_disable_ai_check_button: "关闭自动检查"
+ pgs_disable_ai_check_button_desc: "停止定期重新检查其公司是否有可激活的名贵商品。你自己的国家仍会照常检查。"
+ pgs_enable_ai_check_button: "启用自动检查"
+ pgs_enable_ai_check_button_desc: "允许定期重新检查其公司是否有可激活的名贵商品。"
+
+ # 决议：显示监控面板
+ pgs_show_monitor_decision: "显示名贵商品监控面板"
+ pgs_show_monitor_decision_desc: "手动激活名贵商品监控面板日志条目。"
+ pgs_show_monitor_decision_tooltip: "在日志中添加名贵商品监控面板，追踪所有已解锁的名贵商品，并提供自动检查系统的控制按钮。"

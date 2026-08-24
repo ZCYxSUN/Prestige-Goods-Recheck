@@ -1,0 +1,21 @@
+# 名贵商品监控 - 决议
+# 切换AI国家自动检查开关
+
+# 显示监控面板决议
+pgs_show_monitor_decision = {
+	is_shown = {
+		always = yes
+	}
+
+	possible = {
+		always = yes
+	}
+
+	when_taken = {
+		add_journal_entry = { type = je_pgs_monitor_panel }
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}

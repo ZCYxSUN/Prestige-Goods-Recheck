@@ -1,0 +1,43 @@
+﻿# 名贵商品监控 - 脚本效果
+# 检查单个名贵商品：已被解锁过+日志未激活+存在符合条件的潜在生产商 -> 重新添加日志
+# 参数: $GOODS$ $UNLOCK_VAR$ $JE$
+pgs_check_single_good = {
+	if = {
+		limit = {
+			any_company = { has_variable = $UNLOCK_VAR$ }
+			NOT = { has_journal_entry = $JE$ }
+			any_company = {
+				can_potentially_produce_prestige_goods = $GOODS$
+				is_producing_prestige_goods = no
+				company_is_prosperous = yes
+				NOT = { has_variable = $UNLOCK_VAR$ }
+			}
+		}
+		add_journal_entry = { type = $JE$ }
+		change_variable = { name = pgs_readded_count add = 1 }
+	}
+}
+# 对全部16种名贵商品执行检查(国家作用域)
+pgs_run_all_checks = {
+	set_variable = { name = pgs_readded_count value = 0 }
+	pgs_check_single_good = { GOODS = prestige_good_generic_clothes UNLOCK_VAR = prestige_good_generic_clothes_var JE = je_prestige_goods_clothes }
+	pgs_check_single_good = { GOODS = prestige_good_generic_groceries UNLOCK_VAR = prestige_good_generic_groceries_var JE = je_prestige_goods_groceries }
+	pgs_check_single_good = { GOODS = prestige_good_generic_furniture UNLOCK_VAR = prestige_good_generic_furniture_var JE = je_prestige_goods_furniture }
+	pgs_check_single_good = { GOODS = prestige_good_generic_fertilizer UNLOCK_VAR = prestige_good_generic_fertilizer_var JE = je_prestige_goods_fertilizer }
+	pgs_check_single_good = { GOODS = prestige_good_generic_tools UNLOCK_VAR = prestige_good_generic_tools_var JE = je_prestige_goods_tools }
+	pgs_check_single_good = { GOODS = prestige_good_generic_fish UNLOCK_VAR = prestige_good_generic_fish_var JE = je_prestige_goods_fish }
+	pgs_check_single_good = { GOODS = prestige_good_generic_meat UNLOCK_VAR = prestige_good_generic_meat_var JE = je_prestige_goods_meat }
+	pgs_check_single_good = { GOODS = prestige_good_generic_coffee UNLOCK_VAR = prestige_good_generic_coffee_var JE = je_prestige_goods_coffee }
+	pgs_check_single_good = { GOODS = prestige_good_generic_steel UNLOCK_VAR = prestige_good_generic_steel_var JE = je_prestige_goods_steel }
+	pgs_check_single_good = { GOODS = prestige_good_generic_opium UNLOCK_VAR = prestige_good_generic_opium_var JE = je_prestige_goods_opium }
+	pgs_check_single_good = { GOODS = prestige_good_generic_small_arms UNLOCK_VAR = prestige_good_generic_small_arms_var JE = je_prestige_goods_small_arms }
+	pgs_check_single_good = { GOODS = prestige_good_generic_artillery UNLOCK_VAR = prestige_good_generic_artillery_var JE = je_prestige_goods_artillery }
+	pgs_check_single_good = { GOODS = prestige_good_generic_merchant_marine UNLOCK_VAR = prestige_good_generic_merchant_marine_var JE = je_prestige_goods_merchant_marine }
+	pgs_check_single_good = { GOODS = prestige_good_generic_grain UNLOCK_VAR = prestige_good_generic_grain_var JE = je_prestige_goods_grain }
+	pgs_check_single_good = { GOODS = prestige_good_generic_paper UNLOCK_VAR = prestige_good_generic_paper_var JE = je_prestige_goods_paper }
+	pgs_check_single_good = { GOODS = prestige_good_generic_explosives UNLOCK_VAR = prestige_good_generic_explosives_var JE = je_prestige_goods_explosives }
+	# 兼容接口钩子：调用其他模组覆盖实现的追加检查
+	pgs_extra_prestige_good_checks = yes
+}
+
+pgs_extra_prestige_good_checks = { }

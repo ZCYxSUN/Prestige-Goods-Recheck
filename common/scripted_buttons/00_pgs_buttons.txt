@@ -1,0 +1,49 @@
+# 名贵商品监控 - 脚本按钮
+# 立即检查按钮：立即执行全商品检查
+pgs_check_now_button = {
+	name = pgs_check_now_button
+	desc = pgs_check_now_button_desc
+
+	visible = { always = yes }
+	possible = { always = yes }
+
+	effect = {
+		pgs_run_all_checks = yes
+		custom_tooltip = pgs_check_executed_tt
+	}
+}
+
+# 关闭自动检查按钮：移除全局变量，跳过定期检查
+pgs_disable_ai_check_button = {
+	name = pgs_disable_ai_check_button
+	desc = pgs_disable_ai_check_button_desc
+
+	visible = { always = yes }
+	possible = { always = yes }
+
+	selected = {
+		NOT = { has_global_variable = pgs_yearly_check_enabled }
+	}
+
+	effect = {
+		remove_global_variable = pgs_yearly_check_enabled
+	}
+}
+
+# 启用自动检查按钮：添加全局变量，恢复定期检查
+pgs_enable_ai_check_button = {
+	name = pgs_enable_ai_check_button
+	desc = pgs_enable_ai_check_button_desc
+
+	visible = { always = yes }
+	possible = { always = yes }
+
+	selected = {
+		has_global_variable = pgs_yearly_check_enabled 
+	}
+
+	effect = {
+		set_global_variable = { name = pgs_yearly_check_enabled value = 1 }
+
+	}
+}

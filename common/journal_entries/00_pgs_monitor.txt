@@ -1,0 +1,68 @@
+# 名贵商品监控面板 - 日志条目
+# 当任意公司正在生产名贵商品时显示，定期检查并重新添加可激活的日志
+je_pgs_monitor_panel = {
+	icon = "gfx/interface/icons/goods_icons/prestige_goods/generic_clothes_prestige.dds"
+
+	group = je_group_pgs_monitor
+
+	# 当任意公司正在生产名贵商品(即至少有一种名贵商品已被解锁)时显示
+	is_shown_when_inactive = {
+		is_ai = no
+		year >= 1
+	}
+
+	# 当任意公司正在生产名贵商品(即至少有一种名贵商品已被解锁)时参与到该计算
+	possible = {
+		is_ai = no
+		any_company = { is_producing_prestige_goods = yes }
+	}
+
+	# 每月脉冲
+	# 原本有AI国家也检查的设计，但是意义不大放弃了，以下为原计划，保留部分数据结构做未来扩展保留
+	# 固定12个月为一个检查周期。玩家与每个AI国家都自持一个计数器，
+	# 首次脉冲时从全局计数领取0-11的起始偏移，之后每月+1，满12即检查并归0。
+	# 用起始偏移错开各国家的检查月，避免所有国家挤在同一月。
+	# 新国家出现时自动在首次脉冲领取偏移，旧国家消亡无残留——不依赖任何单一国家或玩家国家。
+	on_monthly_pulse = {
+		effect = {
+			# 早期短路：玩家国家且已关闭AI自动检查时，直接跳过
+			if = {
+				limit = {
+					is_ai = no
+					has_global_variable = pgs_yearly_check_enabled
+				}
+
+				# 懒初始化起始偏移(玩家与AI都需要，仅一次)。说明：无法从国家代码(标签)取数字，
+				# 因此用全局计数器在首次脉冲时依次分配0-11。
+				if = {
+					limit = { NOT = { has_variable = pgs_check_counter } }
+					if = {
+						limit = { NOT = { has_global_variable = pgs_next_turn } }
+						set_global_variable = { name = pgs_next_turn value = 0 }
+					}
+					set_variable = { name = pgs_check_counter value = global_var:pgs_next_turn }
+					change_global_variable = { name = pgs_next_turn add = 1 }
+					if = {
+						limit = { global_var:pgs_next_turn > 11 }
+						set_global_variable = { name = pgs_next_turn value = 0 }
+					}
+				}
+				change_variable = { name = pgs_check_counter add = 1 }
+				if = {
+					limit = { var:pgs_check_counter >= 12 }
+					set_variable = { name = pgs_check_counter value = 0 }
+					pgs_run_all_checks = yes
+				}
+			}
+		}
+	}
+
+	# 交互按钮
+	scripted_button = pgs_check_now_button
+	scripted_button = pgs_disable_ai_check_button
+	scripted_button = pgs_enable_ai_check_button
+
+	weight = 100
+
+	should_be_pinned_by_default_uninvolved_or_context = no
+}

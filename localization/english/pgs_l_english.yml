@@ -1,0 +1,22 @@
+﻿l_english:
+ # Monitor Panel Journal Entries
+ je_group_pgs_monitor:"Companies"
+ je_pgs_monitor_panel: "Prestige Goods Monitor"
+ je_pgs_monitor_panel_reason: "Monitors unlocked prestige goods and periodically checks for new potential producers on a fixed 12-month cycle. Use the buttons below to trigger an immediate check or toggle auto-check."
+ pgs_monitor_status_tt: "The monitor is active. Any company producing prestige goods will be tracked, and new potential producers are detected on a fixed 12-month cycle (auto-checks are spread across months)."
+
+ # Check Now Button
+ pgs_check_now_button: "Check Now"
+ pgs_check_now_button_desc: "Immediately run a check across all 16 prestige goods for activatable potential producers."
+ pgs_check_executed_tt: "Check executed. Any newly activatable prestige good producers have been re-added."
+
+ # AI Auto-Check Buttons
+ pgs_disable_ai_check_button: "Disable Auto-Check"
+ pgs_disable_ai_check_button_desc: "Stop from periodically rechecking their companies for activatable prestige goods. Your own country keeps checking regardless."
+ pgs_enable_ai_check_button: "Enable Auto-Check"
+ pgs_enable_ai_check_button_desc: "Allow to periodically recheck their companies for activatable prestige goods."
+
+ # Decision: Show Monitor
+ pgs_show_monitor_decision: "Show Prestige Goods Monitor"
+ pgs_show_monitor_decision_desc: "Manually activates the Prestige Goods Monitor journal entry panel."
+ pgs_show_monitor_decision_tooltip: "Adds the Prestige Goods Monitor journal entry to your journal. This panel tracks all unlocked prestige goods and provides controls for the automated recheck system."
