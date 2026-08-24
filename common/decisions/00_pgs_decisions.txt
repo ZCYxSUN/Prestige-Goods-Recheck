@@ -1,5 +1,30 @@
 # 名贵商品监控 - 决议
 # 切换AI国家自动检查开关
+pgs_toggle_ai_check_decision = {
+	is_shown = {
+		always = yes
+	}
+
+	possible = {
+		always = yes
+	}
+
+	when_taken = {
+		if = {
+			limit = { has_global_variable = pgs_ai_check_disabled }
+			# 开启AI检查
+			remove_global_variable = pgs_ai_check_disabled
+		}
+		else = {
+			# 关闭AI检查
+			set_global_variable = { name = pgs_ai_check_disabled value = 1 }
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
 
 # 显示监控面板决议
 pgs_show_monitor_decision = {

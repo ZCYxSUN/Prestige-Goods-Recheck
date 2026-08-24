@@ -1,6 +1,14 @@
-﻿# 名贵商品监控 - 脚本效果
+# 名贵商品监控 - 脚本效果
 # 检查单个名贵商品：已被解锁过+日志未激活+存在符合条件的潜在生产商 -> 重新添加日志
 # 参数: $GOODS$ $UNLOCK_VAR$ $JE$
+# ===== 兼容接口(契约) =====
+# 本模组的"检测层"(监控面板/原版名贵商品日志)依赖三个通用触发:
+#   can_potentially_produce_prestige_goods / is_producing_prestige_goods / company_is_prosperous
+#   以及公司上的解锁变量 <prestige_good_<id>_var>。
+# 因此【新增公司】无需任何改动:只要其名贵商品 JE 使用上述原版触发、并在公司上设置解锁变量,
+# 就会被本模组自动识别。
+# 【新增名贵商品】需要一步:在下方新增一行 pgs_check_single_good=<GOODS/UNLOCK_VAR/JE> ...
+# 建议新增商品放入"扩展钩子 pgs_extra_prestige_good_checks"(见底部说明),避免改本文件。
 pgs_check_single_good = {
 	if = {
 		limit = {
@@ -18,6 +26,7 @@ pgs_check_single_good = {
 	}
 }
 # 对全部16种名贵商品执行检查(国家作用域)
+# 登记点:新增商品就在下方加一行。
 pgs_run_all_checks = {
 	set_variable = { name = pgs_readded_count value = 0 }
 	pgs_check_single_good = { GOODS = prestige_good_generic_clothes UNLOCK_VAR = prestige_good_generic_clothes_var JE = je_prestige_goods_clothes }
@@ -36,8 +45,16 @@ pgs_run_all_checks = {
 	pgs_check_single_good = { GOODS = prestige_good_generic_grain UNLOCK_VAR = prestige_good_generic_grain_var JE = je_prestige_goods_grain }
 	pgs_check_single_good = { GOODS = prestige_good_generic_paper UNLOCK_VAR = prestige_good_generic_paper_var JE = je_prestige_goods_paper }
 	pgs_check_single_good = { GOODS = prestige_good_generic_explosives UNLOCK_VAR = prestige_good_generic_explosives_var JE = je_prestige_goods_explosives }
-	# 兼容接口钩子：调用其他模组覆盖实现的追加检查
+	# 兼容接口钩子：调用其他模组覆盖实现的追加检查(默认空实现，见下)
 	pgs_extra_prestige_good_checks = yes
 }
-
+# ===== 兼容接口钩子 =====
+# 默认空实现。其他模组在自己的 scripted_effects 文件里【覆盖】同名效果来追加新名贵商品，
+# 例如它们新建 pgs_extension.txt 并写入:
+#   pgs_extra_prestige_good_checks = {
+#     pgs_check_single_good = { GOODS = <新商品> UNLOCK_VAR = <解锁变量> JE = <新JE> }
+#     # ...可多行
+#   }
+# 备注:V3 加载脚本效果时按同名"后者覆盖前者"，因此多个模组同时扩展时仅最后一个生效。
+# 这只影响主循环二次调用，不影响16种基础商品。
 pgs_extra_prestige_good_checks = { }

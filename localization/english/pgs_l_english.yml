@@ -1,22 +1,26 @@
-﻿l_english:
- # Monitor Panel Journal Entries
- je_group_pgs_monitor:"Companies"
+l_english:
+ # 监控面板日志条目
  je_pgs_monitor_panel: "Prestige Goods Monitor"
- je_pgs_monitor_panel_reason: "Monitors unlocked prestige goods and periodically checks for new potential producers on a fixed 12-month cycle. Use the buttons below to trigger an immediate check or toggle auto-check."
+ je_pgs_monitor_panel_reason: "Monitors unlocked prestige goods and periodically checks for new potential producers on a fixed 12-month cycle. Use the buttons below to trigger an immediate check or toggle AI auto-check."
  pgs_monitor_status_tt: "The monitor is active. Any company producing prestige goods will be tracked, and new potential producers are detected on a fixed 12-month cycle (auto-checks are spread across months)."
 
- # Check Now Button
+ # 立即检查按钮
  pgs_check_now_button: "Check Now"
  pgs_check_now_button_desc: "Immediately run a check across all 16 prestige goods for activatable potential producers."
  pgs_check_executed_tt: "Check executed. Any newly activatable prestige good producers have been re-added."
 
- # AI Auto-Check Buttons
- pgs_disable_ai_check_button: "Disable Auto-Check"
- pgs_disable_ai_check_button_desc: "Stop from periodically rechecking their companies for activatable prestige goods. Your own country keeps checking regardless."
- pgs_enable_ai_check_button: "Enable Auto-Check"
- pgs_enable_ai_check_button_desc: "Allow to periodically recheck their companies for activatable prestige goods."
+ # 决议：切换AI检查
+ pgs_toggle_ai_check_decision: "Toggle AI Auto-Check"
+ pgs_toggle_ai_check_decision_desc: "Toggle whether the periodic auto-check applies to companies owned by AI countries. When disabled, only the player's own companies will be checked."
+ pgs_toggle_ai_check_decision_tooltip: "Toggles whether the periodic auto-check applies to companies owned by AI countries. When disabled, only the player's own companies will be checked for prestige goods reactivation."
 
- # Decision: Show Monitor
+ # AI自动检查按钮
+ pgs_disable_ai_check_button: "Disable AI Auto-Check"
+ pgs_disable_ai_check_button_desc: "Stop AI countries from periodically rechecking their companies for activatable prestige goods. Your own country keeps checking regardless."
+ pgs_enable_ai_check_button: "Enable AI Auto-Check"
+ pgs_enable_ai_check_button_desc: "Allow AI countries to periodically recheck their companies for activatable prestige goods."
+
+ # 决议：显示监控面板
  pgs_show_monitor_decision: "Show Prestige Goods Monitor"
  pgs_show_monitor_decision_desc: "Manually activates the Prestige Goods Monitor journal entry panel."
  pgs_show_monitor_decision_tooltip: "Adds the Prestige Goods Monitor journal entry to your journal. This panel tracks all unlocked prestige goods and provides controls for the automated recheck system."
