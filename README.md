@@ -52,7 +52,7 @@ A lightweight Victoria 3 mod that **periodically re-checks your country's compan
 - **固定 12 个月复核周期** —— 不做每月 `any_company` 扫描。
 - **补激活** 满足以下条件的名贵商品日志：某公司已解锁（持有 `*_var`）**＋** 日志当前未激活（`NOT has_journal_entry`）**＋** 至少存在一家合格潜在生产商。
 - **“立即检查”** 按钮 —— 立刻对全部 16 种名贵商品做一次完整扫描。
-- **启用 / 关闭自动检查** —— 全局开关；关闭后玩家每月脉冲被瞬间短路。
+- **启用 / 关闭自动检查** —— 全局开关；关闭后玩家不再每年检查。
 - 覆盖 **全部 16 种名贵商品**：服饰、杂货、家具、化肥、工具、鱼、肉、咖啡、钢、鸦片、轻武器、火炮、商船、谷物、纸张、炸药。
 - 完整 **简中 / 英文** 本地化。
 
@@ -65,10 +65,10 @@ A lightweight Victoria 3 mod that **periodically re-checks your country's compan
 
 决策 `pgs_show_monitor_decision`（恒显示，`ai_chance = 0`）调用 `add_journal_entry = { type = je_pgs_monitor_panel }`，是手动创建监控面板的入口。
 
-### 2. 日志条目 —— 循环宿主
+### 2. 日志条目 —— 循环主体
 `common\journal_entries\00_pgs_monitor.txt`
 
-`je_pgs_monitor_panel` 是面向玩家的宿主日志（组 `je_group_pgs_monitor`，国家作用域）。包含：
+`je_pgs_monitor_panel` 是面向玩家的日志（组 `je_group_pgs_monitor`，国家作用域）。包含：
 
 - **`is_shown_when_inactive`** = `is_ai = no` + `year >= 1` —— 仅控制显示，无 CPU 成本。
 - **`possible`** = `is_ai = no` + 至少一家公司正在生产名贵商品 —— 即玩家国家在解锁了任意名贵商品时面板生效。
@@ -89,7 +89,7 @@ A lightweight Victoria 3 mod that **periodically re-checks your country's compan
 - **关闭自动检查** → `remove_global_variable = pgs_yearly_check_enabled`。
 - **启用自动检查** → `set_global_variable = { name = pgs_yearly_check_enabled value = 1 }`。
 
-全局变量 `pgs_yearly_check_enabled` 是每月脉冲校验的总开关，作用域为**全局**，可用于跨国家判断，不依赖任何单一国家。
+全局变量 `pgs_yearly_check_enabled` 是每月校验的总开关，作用域为**全局**，可用于跨国家判断，不依赖任何单一国家。
 
 ### 5. 日志组
 `common\journal_entry_groups\00_pgs_groups.txt`
@@ -107,7 +107,7 @@ A lightweight Victoria 3 mod that **periodically re-checks your country's compan
 
 `on_monthly_pulse` 采用“各国自持计数器＋短路跳出”的设计：
 
-1. **早期短路（每月）：**
+1. **早期判定（每月）：**
    `if = { limit = { is_ai = no, has_global_variable = pgs_yearly_check_enabled } }`
    —— 每个国家每月只付 **一次布尔判断（`is_ai = no`）＋ 一次全局变量判断**。AI 国家在 `is_ai = no` 处立刻判否并跳过主体 —— **AI 国家永远不会做公司扫描**。
 2. **计数器初始化（仅玩家、仅一次）：** 若没有 `pgs_check_counter`，就占用手全局计数器 `pgs_next_turn` 分配的 0–11 中的序号作为起始偏移。`pgs_next_turn` 是全局变量，偏移只分配一次，到 11 后回绕为 0。
